@@ -4,25 +4,19 @@ class Solution:
         :type strs: List[str]
         :rtype: str
         """
-        # Exception if strs empty
         if not strs:
-            return ''
+            return ""
 
-        # Getting smallest string length
-        min_size = float('inf')
-        for string in strs:
-            min_size = min(min_size, len(string))
+        output = ""
 
-        # Iterating till the smallest string length
-        for index in range(min_size):
-            # Assigning character of first string
-            char = strs[0][index]
+        index = 0
+        for char in strs[0]:
+            for i in range(1, len(strs)):
+                if index > len(strs[i]) - 1 or char != strs[i][index]:
+                    return output
 
-            # Checking if it is the same for all strings
-            for string in strs:
-                if string[index] != char:
-                    # returning trimmed string till the current index
-                    return string[:index]
+            output += char
+            index += 1
 
-        # Returning smallest string
-        return strs[0][:min_size]
+        return output
+
